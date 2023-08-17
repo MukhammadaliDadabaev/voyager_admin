@@ -178,54 +178,15 @@
             </div>
         </div>
         <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="service">
-                    <img src="img/icon1.png" alt="">
-                    <h5>Digital Marketing</h5>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from</p>
+            @forelse($services as $service)
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img height="100" src="{{asset('storage/'.$service->image) }}" alt="">
+                        <h5>{{$service->title}}</h5>
+                        <p>{{$service->text}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service">
-                    <img src="img/icon2.png" alt="">
-                    <h5>Logo Designing</h5>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service">
-                    <img src="img/icon3.png" alt="">
-                    <h5>Buisness consulting</h5>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service">
-                    <img src="img/icon4.png" alt="">
-                    <h5>Videography</h5>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service">
-                    <img src="img/icon5.png" alt="">
-                    <h5>Brand Identity</h5>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service">
-                    <img src="img/icon6.png" alt="">
-                    <h5>Ethical Hacking</h5>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                        classical Latin literature from</p>
-                </div>
-            </div>
+                @endforeach
         </div>
     </div>
 </section>
@@ -244,7 +205,7 @@
         </div>
     </div>
     <div id="projects-slider" class="owl-theme owl-carousel">
-       @foreach($projects as $project)
+        @foreach($projects as $project)
             <div class="project">
                 <div class="overlay"></div>
                 <img height="430" src="{{asset('storage/'. $project->image)}}" alt="Image">
@@ -253,7 +214,7 @@
                     <h6>{{$project->skill}}</h6>
                 </div>
             </div>
-       @endforeach
+        @endforeach
     </div>
 </section>
 
@@ -477,29 +438,31 @@
                             </div>
                         </div>
                         <div class="col-lg-8">
-                            <form class="p-lg-5 col-12 row g-3">
+                            <form action="{{route('sendcontact')}}" method="post" class="p-lg-5 col-12 row g-3">
+                                @csrf
                                 <div>
                                     <h1>Get in touch</h1>
                                     <p>Fell free to contact us and we will get back to you as soon as possible</p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="userName" class="form-label">First name</label>
-                                    <input type="text" class="form-control" placeholder="Jon" id="userName"
+                                    <label for="f_name" class="form-label">First name</label>
+                                    <input type="text" name="f_name" class="form-control" placeholder="Jon" id="f_name"
                                            aria-describedby="emailHelp">
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="userName" class="form-label">Last name</label>
-                                    <input type="text" class="form-control" placeholder="Doe" id="userName"
+                                    <label for="l_name" class="form-label">Last name</label>
+                                    <input type="text" name="l_name" class="form-control" placeholder="Doe" id="l_name"
                                            aria-describedby="emailHelp">
                                 </div>
                                 <div class="col-12">
-                                    <label for="userName" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" placeholder="Johndoe@example.com"
-                                           id="userName" aria-describedby="emailHelp">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" name="email" class="form-control"
+                                           placeholder="Johndoe@example.com"
+                                           id="email" aria-describedby="emailHelp">
                                 </div>
                                 <div class="col-12">
-                                    <label for="exampleInputEmail1" class="form-label">Enter Message</label>
-                                    <textarea name="" placeholder="This is looking great and nice."
+                                    <label for="message" class="form-label">Enter Message</label>
+                                    <textarea name="message" placeholder="This is looking great and nice."
                                               class="form-control" id="" rows="4"></textarea>
                                 </div>
 
