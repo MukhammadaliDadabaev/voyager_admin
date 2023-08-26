@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SendContactController;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ProjectController::class, 'index'])->name('index');
-Route::post('/sendcontact', [SendContactController::class, 'sendContact'])->name('sendcontact');
+//Route::post('/sendcontact', [SendContactController::class, 'sendContact'])->name('sendcontact');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
