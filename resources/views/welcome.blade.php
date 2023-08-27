@@ -178,15 +178,15 @@
             </div>
         </div>
         <div class="row g-4">
-{{--            @forelse($services as $service)--}}
-{{--                <div class="col-lg-4 col-md-6">--}}
-{{--                    <div class="service">--}}
-{{--                        <img height="100" src="{{asset('storage/'.$service->image) }}" alt="">--}}
-{{--                        <h5>{{$service->title}}</h5>--}}
-{{--                        <p>{{$service->text}}</p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                @endforeach--}}
+            @forelse($services as $service)
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img height="100" src="{{asset('storage/'.$service->image) }}" alt="">
+                        <h5>{{$service->title}}</h5>
+                        <p>{{$service->text}}</p>
+                    </div>
+                </div>
+                @endforeach
         </div>
     </div>
 </section>
@@ -437,9 +437,8 @@
 
                             </div>
                         </div>
-{{--                        {{route('sendcontact')}}--}}
                         <div class="col-lg-8">
-                            <form action="" method="post" class="p-lg-5 col-12 row g-3">
+                            <form action="{{route('sendcontact')}}" method="post" class="p-lg-5 col-12 row g-3">
                                 @csrf
                                 <div>
                                     <h1>Get in touch</h1>

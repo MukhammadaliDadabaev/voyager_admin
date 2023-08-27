@@ -17,7 +17,7 @@ use TCG\Voyager\Facades\Voyager;
 */
 
 Route::get('/', [ProjectController::class, 'index'])->name('index');
-//Route::post('/sendcontact', [SendContactController::class, 'sendContact'])->name('sendcontact');
+Route::post('/sendcontact', [SendContactController::class, 'sendContact'])->name('sendcontact');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
