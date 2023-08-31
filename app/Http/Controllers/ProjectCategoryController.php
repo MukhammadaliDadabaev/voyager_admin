@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\ProjectCategory;
 use App\Http\Requests\StoreProjectCategoryRequest;
 use App\Http\Requests\UpdateProjectCategoryRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProjectCategoryController extends Controller
 {
     public function index()
     {
-        return ProjectCategory::all();
+        $projectCategory = ProjectCategory::all();
+        $total = ProjectCategory::count();
+        return response()->json([
+            "Total" => $total,
+            "Project_Category" => $projectCategory
+        ]);
     }
 
     public function store(StoreProjectCategoryRequest $request)
@@ -21,9 +27,15 @@ class ProjectCategoryController extends Controller
         return "Success ProjectCategory created";
     }
 
-    public function show(ProjectCategory $projectCategory)
+    public function show($id)
     {
-        return $projectCategory;
+        try {
+            $projectCategory = ProjectCategory::findOrFail($id);
+            return $projectCategory;
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["Error" => "Not Found ID Data"], 404);
+        }
+
     }
 
     public function update(UpdateProjectCategoryRequest $request, ProjectCategory $projectCategory)
@@ -31,7 +43,7 @@ class ProjectCategoryController extends Controller
         $data = $request->validated();
         $projectCategory->update($data);
 
-        return "Success ProjectCategory updated". $projectCategory;
+        return "Success ProjectCategory updated" . $projectCategory;
     }
 
     public function destroy(ProjectCategory $projectCategory)
