@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectCategory;
 use App\Http\Requests\StoreProjectCategoryRequest;
 use App\Http\Requests\UpdateProjectCategoryRequest;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProjectCategoryController extends Controller
@@ -22,9 +23,19 @@ class ProjectCategoryController extends Controller
     public function store(StoreProjectCategoryRequest $request)
     {
         $data = $request->validated();
-        ProjectCategory::create($data);
 
-        return "Success ProjectCategory created";
+        $month = Carbon::now()->monthName;
+        $year = Carbon::now()->year;
+        $monthYear = "$month$year";
+
+        if ($request->hasFile("image")) {
+            $path = $request->file('image')->store("project-categories/$monthYear", 'public');
+            $data["image"] = $path;
+        }
+
+        $projectCategory = ProjectCategory::create($data);
+
+        return "Success ProjectCategory created" . $projectCategory;
     }
 
     public function show($id)
@@ -41,6 +52,16 @@ class ProjectCategoryController extends Controller
     public function update(UpdateProjectCategoryRequest $request, ProjectCategory $projectCategory)
     {
         $data = $request->validated();
+
+        $month = Carbon::now()->monthName;
+        $year = Carbon::now()->year;
+        $monthYear = "$month$year";
+
+        if ($request->hasFile("image")) {
+            $path = $request->file('image')->store("project-categories/$monthYear", 'public');
+            $data["image"] = $path;
+        }
+
         $projectCategory->update($data);
 
         return "Success ProjectCategory updated" . $projectCategory;

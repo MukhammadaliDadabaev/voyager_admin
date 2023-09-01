@@ -25,6 +25,7 @@ class UpdateProjectCategoryRequest extends FormRequest
     {
         return [
             'category_name' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'info' => 'required'
         ];
     }
